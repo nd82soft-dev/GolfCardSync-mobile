@@ -1,0 +1,24 @@
+name: PR Preview Build
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then npm ci; else npm install; fi
+      - name: Build
+        run: |
+          if npm run | grep -q "build"; then npm run build; else echo "No build script found"; fi
+      - name: Run tests
+        run: |
+          if npm run | grep -q "test"; then npm test -- --coverage; else echo "No test script found"; fi
