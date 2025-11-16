@@ -9,6 +9,7 @@ export default function HoleSelector({ value, onChange }: Props) {
   return (
     <div style={{ display: 'flex', gap: 8 }}>
       <button
+        type="button"
         onClick={() => onChange(9)}
         aria-pressed={value === 9}
         style={{
@@ -22,6 +23,7 @@ export default function HoleSelector({ value, onChange }: Props) {
       </button>
 
       <button
+        type="button"
         onClick={() => onChange(18)}
         aria-pressed={value === 18}
         style={{
